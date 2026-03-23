@@ -121,7 +121,8 @@ export default function Contact() {
                 </motion.div>
 
                 <motion.a
-                  href="#"
+                  href="/Muhammad-Hamza-Resume.pdf"
+                  download="Muhammad-Hamza-Resume.pdf"
                   className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg border border-accent/25 bg-accent/5 text-accent text-xs hover:bg-accent/10 transition-colors"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
