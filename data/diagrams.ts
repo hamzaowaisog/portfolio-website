@@ -1,8 +1,99 @@
-import type { ArchDiagramProps } from "@/components/project/ArchitectureDiagram";
+import type { DiagramData } from "@/components/project/ArchitectureDiagram";
 
-type DiagramData = Omit<ArchDiagramProps, "accentColor">;
+// Grid layout fills rows left to right; second rows are listed in reverse so flows "snake" back.
 
 export const diagrams: Record<string, DiagramData> = {
+  "ai-factory": {
+    title: "ai-factory.pipeline",
+    cols: 4,
+    nodes: [
+      { id: "req", label: "Change request", sublabel: "TypeScript CLI", type: "client" },
+      { id: "model", label: "Model selection", sublabel: "per step + cost log", type: "ai" },
+      { id: "erd", label: "Data-model gate", sublabel: "ERD check", type: "service" },
+      { id: "tests", label: "Tests first", sublabel: "written before code", type: "service" },
+      { id: "pr", label: "Pull request", sublabel: "for human review", type: "external" },
+      { id: "gate", label: "Merge gate", sublabel: "blocks unverified", type: "service" },
+      { id: "box", label: "Sealed container", sublabel: "checks run here", type: "infra" },
+      { id: "impl", label: "Implementation", sublabel: ".NET + PostgreSQL", type: "ai" },
+    ],
+    edges: [
+      { from: "req", to: "model" },
+      { from: "model", to: "erd" },
+      { from: "erd", to: "tests" },
+      { from: "tests", to: "impl" },
+      { from: "impl", to: "box", label: "verify" },
+      { from: "box", to: "gate" },
+      { from: "gate", to: "pr", label: "verified only" },
+    ],
+  },
+
+  "angus-media-sale-book": {
+    title: "sale-book.search",
+    cols: 4,
+    nodes: [
+      { id: "ui", label: "Angular UI", sublabel: "upload + viewer", type: "client" },
+      { id: "api", label: "Web API", sublabel: "ASP.NET", type: "api" },
+      { id: "job", label: "Hangfire job", sublabel: "existing, extended", type: "infra" },
+      { id: "xy", label: "Layout parser", sublabel: "iTextSharp XY-cut", type: "service" },
+      { id: "view", label: "Highlights", sublabel: "any zoom level", type: "client" },
+      { id: "solr", label: "Apache Solr", sublabel: "text + positions", type: "data" },
+      { id: "pos", label: "Positions", sublabel: "page-relative", type: "data" },
+      { id: "tbl", label: "Tables", sublabel: "rows from coords", type: "service" },
+    ],
+    edges: [
+      { from: "ui", to: "api", label: "PDF upload" },
+      { from: "api", to: "job", label: "enqueue" },
+      { from: "job", to: "xy" },
+      { from: "xy", to: "tbl" },
+      { from: "tbl", to: "pos" },
+      { from: "pos", to: "solr", label: "index" },
+      { from: "solr", to: "view", label: "search hits" },
+    ],
+  },
+
+  landteller: {
+    title: "landteller.fixes-and-reporting",
+    cols: 4,
+    nodes: [
+      { id: "fe", label: "Frontend", sublabel: "handles 403 contract", type: "client" },
+      { id: "api", label: ".NET API", sublabel: "tenant-scoped", type: "api" },
+      { id: "chk", label: "Access checks", sublabel: "sold lots → 403", type: "service" },
+      { id: "reg", label: "Regression suites", sublabel: "2 .NET test suites", type: "infra" },
+      { id: "erp", label: "Frappe / ERPNext", sublabel: "sales data", type: "external" },
+      { id: "fix", label: "Data repair", sublabel: "2 patches", type: "service" },
+      { id: "dash", label: "Frappe Insights", sublabel: "sales dashboards", type: "client" },
+      { id: "dt", label: "Dashboard tests", sublabel: "18 automated", type: "infra" },
+    ],
+    edges: [
+      { from: "fe", to: "api" },
+      { from: "api", to: "chk" },
+      { from: "reg", to: "chk", label: "guards" },
+      { from: "erp", to: "fix" },
+      { from: "fix", to: "dash" },
+      { from: "dt", to: "dash", label: "verifies" },
+    ],
+  },
+
+  "malani-wholesale": {
+    title: "malani.monorepo",
+    cols: 3,
+    nodes: [
+      { id: "web", label: "Next.js web", sublabel: "44 pages", type: "client" },
+      { id: "orval", label: "Orval hooks", sublabel: "typed from contract", type: "service" },
+      { id: "api", label: "NestJS API", sublabel: "119 endpoints, 15 modules", type: "api" },
+      { id: "shared", label: "Shared packages", sublabel: "UI + translations", type: "infra" },
+      { id: "pg", label: "PostgreSQL", sublabel: "31 models", type: "data" },
+      { id: "prisma", label: "Prisma", sublabel: "ORM", type: "data" },
+    ],
+    edges: [
+      { from: "web", to: "orval" },
+      { from: "orval", to: "api", label: "REST" },
+      { from: "api", to: "prisma" },
+      { from: "prisma", to: "pg" },
+      { from: "shared", to: "web", label: "imports" },
+    ],
+  },
+
   "ecodocs-backend": {
     title: "ecodocs.architecture",
     nodes: [
@@ -224,13 +315,14 @@ export const diagrams: Record<string, DiagramData> = {
 
   "license-plate-detection": {
     title: "license.plate.detection.pipeline",
+    cols: 4,
     nodes: [
-      { id: "input",   label: "Video / Images",  sublabel: "Input frames",              type: "client" },
-      { id: "cv",      label: "OpenCV Prep",      sublabel: "Resize + normalize",        type: "service" },
       { id: "dataset", label: "Custom Dataset",   sublabel: "Annotated plates",          type: "data" },
       { id: "train",   label: "PyTorch Training", sublabel: "CUDA / NVIDIA 940MX",       type: "infra" },
       { id: "yolo",    label: "YOLO v8 Model",    sublabel: "Fine-tuned weights",        type: "ai" },
       { id: "bbox",    label: "Bounding Boxes",   sublabel: "Plate + vehicle",           type: "service" },
+      { id: "input",   label: "Video / Images",  sublabel: "Input frames",              type: "client" },
+      { id: "cv",      label: "OpenCV Prep",      sublabel: "Resize + normalize",        type: "service" },
       { id: "csv",     label: "CSV Output",        sublabel: "Coordinates per frame",     type: "data" },
     ],
     edges: [

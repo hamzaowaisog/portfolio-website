@@ -1,168 +1,88 @@
-"use client";
+import { ArrowDown, Download, Mail } from "lucide-react";
+import HeroCanvas from "./HeroCanvas";
+import Counter from "./Counter";
+import Magnetic from "./Magnetic";
+import { site } from "@/lib/site";
 
-import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+// Sources: build_resume_v6.py + Resume_v5_ATS ("270+ REST endpoints and 730+ automated tests across own full-stack builds").
+const stats = [
+  { value: 7, suffix: "", label: "clients shipped for" },
+  { value: 270, suffix: "+", label: "REST endpoints designed" },
+  { value: 730, suffix: "+", label: "automated tests written" },
+  { value: 2, suffix: "", label: "solo products in production" },
+];
 
-const words = ["Platform", "Engineer."];
-const tagline = "I build resilient, cross-platform product systems — translating complex business operations into elegant web and mobile architecture.";
+const stack = ["React Native", "TypeScript", "Angular", "Next.js", "ASP.NET Core", "C#", "PostgreSQL", "LLM / RAG"];
 
-function BackgroundGrid() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent via-bg to-bg opacity-90" />
-
-      {/* Dot grid */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-[0.03]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="1" fill="#FAFAFA" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
-
-      {/* Accent glow top-left */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-accent/5 blur-[120px]" />
-      {/* Subtle blue glow right */}
-      <div className="absolute top-1/2 -right-40 w-80 h-80 rounded-full bg-blue-600/5 blur-[100px]" />
-
-      {/* Animated line traces */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-[0.06]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <motion.line
-          x1="0" y1="35%" x2="100%" y2="35%"
-          stroke="#00F260" strokeWidth="0.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2.5, delay: 1, ease: "easeInOut" }}
-        />
-        <motion.line
-          x1="0" y1="65%" x2="100%" y2="65%"
-          stroke="#00F260" strokeWidth="0.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2.5, delay: 1.5, ease: "easeInOut" }}
-        />
-      </svg>
-    </div>
-  );
-}
+const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg">
-      <BackgroundGrid />
-
-      <div className="relative z-10 max-w-container mx-auto px-6 text-center pt-24">
-        {/* Status badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/20 bg-accent/5 mb-10"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          <span className="text-xs font-mono text-accent tracking-wider">
-            Available for senior engineering roles
-          </span>
-        </motion.div>
-
-        {/* Main headline */}
-        <div className="overflow-hidden mb-4">
-          <motion.p
-            className="text-sm font-mono text-text-muted tracking-[0.2em] uppercase mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Muhammad Hamza
-          </motion.p>
-        </div>
-
-        <div className="mb-6">
-          <motion.h1
-            className="text-display-xl font-semibold text-text-primary leading-none tracking-tight"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="block">Full-Stack</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-text-primary via-accent to-text-primary">
-              Platform
-            </span>
-            <span className="block">Engineer.</span>
-          </motion.h1>
-        </div>
-
-        {/* Tagline */}
-        <motion.p
-          className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {tagline}
-        </motion.p>
-
-        {/* Vertical stack tags */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-2 mb-12"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {["React Native", ".NET / ASP.NET Core", "Next.js", "FastAPI + RAG", "Turborepo"].map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 rounded-tag border border-white/10 bg-bg-elevated text-text-muted font-mono text-xs"
-            >
-              {tag}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <a
-            href="#work"
-            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-bg font-medium text-sm hover:bg-accent/90 transition-all duration-200 shadow-accent-glow"
-          >
-            View Case Studies
-            <ArrowDown size={15} className="group-hover:translate-y-0.5 transition-transform" />
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/10 bg-bg-elevated text-text-primary text-sm hover:border-white/25 hover:bg-bg-surface transition-all duration-200"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
+    <section id="top" className="relative flex min-h-[100svh] items-center overflow-hidden pb-14 pt-24">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-accent/10 blur-[120px]" />
+        <div className="absolute -right-32 top-1/3 h-[26rem] w-[26rem] rounded-full bg-accent-2/10 blur-[120px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(rgb(var(--fg)/0.06)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       </div>
+      <HeroCanvas />
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
-      >
-        <motion.div
-          className="w-px h-12 bg-gradient-to-b from-transparent to-text-subtle"
-          animate={{ scaleY: [0, 1, 0], originY: 0 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
+      <div className="container-x relative">
+        <p className="rise mb-6 inline-flex items-center gap-2 rounded-full border border-fg/10 bg-bg-surface/60 px-3 py-1 font-mono text-xs text-text-muted backdrop-blur" style={d(0)}>
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden />
+          Software Engineer at Folio3 · {site.location}
+        </p>
+
+        <h1 className="text-display-xl font-semibold tracking-tight">
+          <span className="rise-solid inline-block" style={d(40)}>Muhammad</span>{" "}
+          <span className="rise-solid inline-block bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent" style={d(110)}>
+            Hamza
+          </span>
+        </h1>
+
+        <p className="rise-solid mt-4 text-display-sm font-medium text-text-primary" style={d(160)}>
+          {site.role} <span className="text-text-muted">· {site.stack}</span>
+        </p>
+
+        <p className="rise-solid mt-4 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg" style={d(220)}>
+          I progressed from intern to Software Engineer at Folio3, shipping production systems for 7 clients across healthcare,
+          agritech, land sales and livestock media, and I take hard problems from prototype to production.
+        </p>
+
+        <div className="rise mt-7 flex flex-wrap items-center gap-3" style={d(280)}>
+          <Magnetic>
+            <a href={site.resume} download className="btn-primary">
+              <Download size={16} aria-hidden /> Download resume
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="#contact" className="btn-ghost">
+              <Mail size={16} aria-hidden /> Contact me
+            </a>
+          </Magnetic>
+          <a href="#work" className="ml-1 hidden items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary sm:inline-flex">
+            View work <ArrowDown size={14} aria-hidden />
+          </a>
+        </div>
+
+        <dl className="rise mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-card border border-fg/10 bg-fg/10 sm:grid-cols-4" style={d(340)}>
+          {stats.map((s) => (
+            <div key={s.label} className="flex flex-col-reverse bg-bg-surface/80 px-4 py-4 backdrop-blur">
+              <dt className="mt-1 text-xs leading-snug text-text-muted">{s.label}</dt>
+              <dd className="text-3xl font-semibold tracking-tight text-text-primary">
+                <Counter value={s.value} suffix={s.suffix} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <ul aria-label="Core stack" className="rise mt-6 flex flex-wrap gap-2" style={d(400)}>
+          {stack.map((s) => (
+            <li key={s} className="chip">
+              {s}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
