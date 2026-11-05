@@ -17,7 +17,7 @@ export const experience: Role[] = [
     period: "Jun 2025 – Present",
     current: true,
     points: [
-      { text: "AI Factory: co-built an LLM pipeline that turns change requests into tested pull requests; top contributor.", slug: "ai-factory" },
+      { text: "Co-built AI Factory, Folio3's internal LLM pipeline that turns plain-English change requests into tested pull requests on .NET + PostgreSQL codebases; top contributor with 144 commits and 83 test files in 3 weeks.", slug: "ai-factory" },
       { text: "Angus Media: took in-book PDF search from proof of concept to production Solr indexing.", slug: "angus-media-sale-book" },
       { text: "LandTeller: closed a sold-lot data exposure and developed fixes for 3 critical tenant-isolation findings.", slug: "landteller" },
       { text: "MyEndo: own releases of a production iOS/Android app through v1.4 across 4 environments.", slug: "myendo-mobile" },
