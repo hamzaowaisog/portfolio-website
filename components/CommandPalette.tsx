@@ -21,7 +21,7 @@ export default function CommandPalette({ projects }: { projects: { slug: string;
     return [
       ...sections.map((s) => ({ id: `s-${s.id}`, label: s.label, group: "Sections", run: go(`/#${s.id}`) })),
       ...projects.map((p) => ({ id: `p-${p.slug}`, label: p.title, group: "Case studies", run: go(`/projects/${p.slug}`) })),
-      { id: "a-resume", label: "Download resume (PDF)", group: "Actions", run: open(site.resume) },
+      { id: "a-resume", label: "Download resume (PDF)", group: "Actions", run: () => Object.assign(document.createElement("a"), { href: site.resume, download: "" }).click() },
       { id: "a-email", label: `Email ${site.email}`, group: "Actions", run: () => (location.href = `mailto:${site.email}`) },
       { id: "a-theme", label: "Toggle light / dark theme", group: "Actions", run: toggleTheme },
       { id: "a-github", label: "Open GitHub", group: "Actions", run: open(site.github) },
