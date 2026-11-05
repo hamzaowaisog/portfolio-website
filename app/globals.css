@@ -2,81 +2,194 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme tokens: RGB channels, consumed by tailwind.config.ts. Dark is the default. */
 :root {
-  --bg: #0A0A0C;
-  --accent: #00F260;
+  color-scheme: dark;
+  --bg: 7 11 20;
+  --surface: 12 18 32;
+  --elevated: 19 27 46;
+  --fg: 226 232 240;
+  --text: 241 245 249;
+  --muted: 148 163 184;
+  --subtle: 124 139 161;
+  --accent: 34 211 238;
+  --accent-2: 167 139 250;
+  --accent-ink: 7 11 20;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: 248 250 252;
+  --surface: 255 255 255;
+  --elevated: 241 245 249;
+  --fg: 15 23 42;
+  --text: 15 23 42;
+  --muted: 71 85 105;
+  --subtle: 100 116 139;
+  --accent: 14 116 144;
+  --accent-2: 109 40 217;
+  --accent-ink: 255 255 255;
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background-color: #0A0A0C;
-  color: #FAFAFA;
-  font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
-  min-height: 100vh;
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  overflow-x: clip;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0A0A0C;
-}
-::-webkit-scrollbar-thumb {
-  background: #2a2a30;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3a3a45;
-}
-
-/* Selection */
 ::selection {
-  background-color: rgba(0, 242, 96, 0.2);
-  color: #FAFAFA;
+  background: rgb(var(--accent) / 0.25);
 }
 
-/* Smooth section transitions */
-section {
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Lenis (smooth scroll) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-4 sm:px-6;
+  }
+  .eyebrow {
+    @apply mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  }
+  .card {
+    @apply rounded-card border border-fg/10 bg-bg-surface/70;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-md border border-fg/10 bg-fg/[0.03] px-2 py-0.5 font-mono text-xs text-text-muted;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-accent-ink hover:bg-accent/90;
+  }
+  .btn-ghost {
+    @apply btn border border-fg/15 text-text-primary hover:border-accent/60 hover:bg-fg/5;
+  }
+}
+
+/* Cursor spotlight for cards: --mx/--my are set by TiltCard on pointer move. */
+.spotlight {
   position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgb(var(--accent) / 0.12), transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.spotlight:hover::before {
+  opacity: 1;
 }
 
-/* Typography utilities */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Hero entrance: transform-led so text is legible from first paint. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
-
-  .font-feature-numeric {
-    font-variant-numeric: tabular-nums;
+}
+@keyframes rise-solid {
+  from {
+    transform: translateY(0.35em);
+  }
+}
+@keyframes page-in {
+  from {
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+  /* Transform only: text-heavy hero lines must paint on the first frame (they are the LCP candidates). */
+  .rise-solid {
+    animation: rise-solid 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .page-in {
+    animation: page-in 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #FAFAFA 0%, #00F260 50%, #FAFAFA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Scroll reveal: Reveal sets [data-shown] once the element enters view. .stagger children follow in order of --i. */
+@keyframes fade-x {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
 }
-
-/* Glow border animation */
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 1px rgba(0,242,96,0.1); }
-  50% { box-shadow: 0 0 0 1px rgba(0,242,96,0.35), 0 0 24px rgba(0,242,96,0.1); }
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
 }
-
-.glow-border-pulse {
-  animation: glow-pulse 3s ease-in-out infinite;
+@keyframes grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    transition:
+      opacity 550ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .reveal:not([data-shown]) .stagger {
+    opacity: 0;
+  }
+  .reveal[data-shown] .stagger {
+    animation: fade-x 300ms ease-out both;
+    animation-delay: calc(var(--i, 0) * 70ms + 150ms);
+  }
+  .pop-in {
+    animation: pop-in 250ms ease-out both;
+  }
+  @supports (animation-timeline: view()) {
+    .scroll-line {
+      transform-origin: top;
+      animation: grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 55%;
+    }
+  }
 }

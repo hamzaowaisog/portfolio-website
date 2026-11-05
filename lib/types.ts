@@ -21,10 +21,9 @@ export interface Project {
   elevatorPitch: string;
   domain: string;
   role: string;
-  year: string;
-  status: "Production" | "Research" | "Internal" | "POC";
+  period: string;
+  status: "Production" | "In progress" | "Internal R&D" | "Internal" | "Research";
   featured: boolean;
-  accentColor: string;
   tags: TechTag[];
   challenge: string;
   solution: string;

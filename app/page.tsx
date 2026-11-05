@@ -1,23 +1,19 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
+import Work from "@/components/Work";
+import Experience from "@/components/Experience";
+import Leadership from "@/components/Leadership";
 import Skills from "@/components/Skills";
-import FeaturedProjects from "@/components/FeaturedProjects";
-import AllProjects from "@/components/AllProjects";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main>
-      <Navbar />
+    <main id="main">
       <Hero />
-      <FeaturedProjects />
-      <About />
+      <Work />
+      <Experience />
+      <Leadership />
       <Skills />
-      <AllProjects />
       <Contact />
-      <Footer />
     </main>
   );
 }
