@@ -32,6 +32,7 @@ export interface Project {
   technicalHighlights: string[];
   constraints: string[];
   links?: { label: string; href: string }[];
+  screenshots?: { note: string; portrait?: boolean; items: { src: string; alt: string }[] };
   metrics?: ProjectMetric[];
   architectureNote?: string;
 }

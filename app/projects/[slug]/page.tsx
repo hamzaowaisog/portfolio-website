@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getProjectBySlug, projects } from "@/data/projects";
 import Reveal from "@/components/Reveal";
@@ -39,6 +40,30 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <main id="main">
       <ProjectHero project={project} />
+      {project.screenshots && (
+        <section className="border-t border-fg/5 py-16">
+          <div className="container-x">
+            <p className="eyebrow">Screens</p>
+            <h2 className="mb-3 text-display-sm font-semibold">What it looks like</h2>
+            <p className="mb-8 max-w-2xl text-sm leading-relaxed text-text-muted">{project.screenshots.note}</p>
+            <div className={project.screenshots.portrait ? "grid grid-cols-2 gap-4 md:grid-cols-4" : "grid gap-4 md:grid-cols-2"}>
+              {project.screenshots.items.map((s) => (
+                <a key={s.src} href={s.src} target="_blank" rel="noreferrer" className="card overflow-hidden">
+                  <Image
+                    src={s.src}
+                    alt={s.alt}
+                    width={project.screenshots!.portrait ? 600 : 1600}
+                    height={project.screenshots!.portrait ? 1258 : 1000}
+                    sizes={project.screenshots!.portrait ? "(min-width: 768px) 25vw, 50vw" : "(min-width: 768px) 50vw, 100vw"}
+                    className="h-auto w-full"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <ArchitectureSection project={project} />
       {slug === "ai-factory" && <AIFactoryTerminal />}
 
