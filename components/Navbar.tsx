@@ -42,7 +42,7 @@ export default function Navbar() {
       <div className="container-x flex h-16 items-center justify-between gap-4">
         <Link href="/" className="group flex items-center gap-2 font-mono text-sm" aria-label={`${site.name}, home`}>
           <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgb(var(--accent))]" />
-          mhamza<span className="text-text-subtle">.dev</span>
+          muhammad<span className="text-text-subtle">.hamza</span>
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">

@@ -31,6 +31,7 @@ export interface Project {
   engineeringDecisions: EngineeringDecision[];
   technicalHighlights: string[];
   constraints: string[];
+  links?: { label: string; href: string }[];
   metrics?: ProjectMetric[];
   architectureNote?: string;
 }

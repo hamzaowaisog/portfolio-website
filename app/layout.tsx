@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { projects } from "@/data/projects";
 import { site } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // Latin subsets keep the hero font small. Mono is decorative (eyebrows, chips), so it skips preload.
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
           <Footer />
         </Providers>
+        <Analytics />
         <CommandPalette projects={projects.map(({ slug, title }) => ({ slug, title }))} />
       </body>
     </html>

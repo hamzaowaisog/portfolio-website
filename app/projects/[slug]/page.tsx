@@ -95,8 +95,8 @@ export default async function ProjectPage({ params }: Props) {
           </div>
           <div>
             <Reveal>
-              <p className="eyebrow">Constraints</p>
-              <h2 className="mb-6 text-display-sm font-semibold">Limits and honest notes</h2>
+              <p className="eyebrow">Scope</p>
+              <h2 className="mb-6 text-display-sm font-semibold">My role and honest notes</h2>
             </Reveal>
             <ul className="space-y-3">
               {project.constraints.map((c) => (

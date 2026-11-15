@@ -6,7 +6,7 @@ export const projects: Project[] = [
     slug: "myendo-mobile",
     title: "MyEndo Mobile Platform",
     elevatorPitch:
-      "A cross-platform patient health application combining personalized onboarding, a dynamic questionnaire engine, offline-first content access, and event-driven research journey integration — built for iOS and Android with multi-environment release discipline.",
+      "A patient health app for iOS and Android whose releases I own: about 30 screens, offline-first content, a questionnaire engine and push notifications, shipped through v1.4 across 4 environments.",
     domain: "Mobile Health / Patient Engagement",
     role: "Mobile engineer · release owner",
     period: "Dec 2025 – Present",
@@ -99,9 +99,8 @@ export const projects: Project[] = [
       "Load-test script with adaptive backpressure",
     ],
     constraints: [
-      "Hardcoded build mode selection in API config is a production risk; runtime environment-variable-driven selection should be standardized.",
-      "Existing README does not capture architecture or product context, making onboarding harder for new contributors — a known improvement target.",
-      "Some naming inconsistencies (questionnaire spelling variants) create low-level maintenance friction that compounds over time.",
+      "Team project: about 9 engineers have committed to the app. The highlights above are the parts I built, and I own its releases.",
+      "Client code is proprietary; the architecture is described, not shown.",
     ],
     metrics: [
       { value: "v1.4", label: "Releases shipped" },
@@ -116,9 +115,9 @@ export const projects: Project[] = [
     slug: "ted2-frontend-monorepo",
     title: "TED2 Monorepo (FEW Center)",
     elevatorPitch:
-      "A cross-platform frontend platform connecting a Next.js web app and React Native mobile app through shared internal packages, RFC-governed architecture rules, and environment-specific delivery workflows.",
+      "The shared codebase behind FEW Center's Next.js web app and React Native app. I wrote its architecture RFCs, eliminated iPad crashes caused by a ~900 MB memory spike, and benchmarked 3 real-time protocols to choose one.",
     domain: "Platform Architecture / Frontend Infrastructure",
-    role: "Frontend platform engineer · RFC author",
+    role: "Frontend engineer · RFC author",
     period: "2026",
     status: "Production",
     featured: true,
@@ -186,8 +185,8 @@ export const projects: Project[] = [
       "Benchmarked 3 real-time protocols (Socket.IO, MQTT, WebRTC) with an in-app latency pipeline",
     ],
     constraints: [
-      "RFC mentions some package structure that differs slightly from current folders — indicates active evolution.",
-      "Mixed package manager artifacts (yarn.lock and package-lock.json) suggest tooling migration overlap that should be resolved.",
+      "Team project at Folio3: the RFCs, the memory fix and the protocol benchmark are my work.",
+      "Client code is proprietary; the architecture is described, not shown.",
     ],
     metrics: [
       { value: "~900MB", label: "Memory spike eliminated" },
@@ -204,7 +203,7 @@ export const projects: Project[] = [
     elevatorPitch:
       "A livestock sale-book portal where I took in-book PDF search from proof of concept to production Solr indexing, with a custom layout parser that rebuilds tables and keeps search highlights accurate at any zoom.",
     domain: "Livestock Media / Document Search",
-    role: "Full-Stack Engineer",
+    role: "Full-stack engineer · team project",
     period: "Aug – Sep 2026",
     status: "Production",
     featured: true,
@@ -263,6 +262,7 @@ export const projects: Project[] = [
       "Fixed video downloads that saved an HTML page as .mp4",
     ],
     constraints: [
+      "Team project with other Folio3 engineers; the highlights above are the parts I worked on.",
       "Client code and documents are proprietary; the diagram is reconstructed at the architecture level.",
     ],
     metrics: [
@@ -333,6 +333,7 @@ export const projects: Project[] = [
       "Fixed broken attachment links",
     ],
     constraints: [
+      "I joined an existing team in Oct 2026; the highlights above are my own commits.",
       "Ongoing engagement: the tenant-isolation fixes are developed and tested but not yet merged, and the dashboards are built but not yet launched.",
       "Client code is proprietary; no findings, endpoints or data are shown here.",
     ],
@@ -574,9 +575,9 @@ export const projects: Project[] = [
     slug: "ecodocs-backend",
     title: "EcoDocs Backend Platform",
     elevatorPitch:
-      "A domain-heavy agritech backend platform powering end-to-end operational workflows — from field scheduling and multi-tenant data access to background job orchestration and notification pipelines.",
+      "The .NET 6 API behind an agritech field-operations product: tenant data isolation with EF Core filters, background jobs on Hangfire and Quartz.NET, and JWT auth. I built features on it as part of the team.",
     domain: "Agritech Operations",
-    role: "Backend Architecture & Platform Engineering",
+    role: "Backend engineer · team project",
     period: "2025",
     status: "Production",
     featured: false,
@@ -647,9 +648,8 @@ export const projects: Project[] = [
       "Swagger/OpenAPI for API discoverability across mobile and web clients",
     ],
     constraints: [
-      "Configuration files currently contain environment-specific values; production hardening should move all secrets to vault-based or environment-variable secret management.",
-      "Mixed legacy and current patterns in startup configuration suggest room for pipeline modernization and removal of historical commented code.",
-      "A test coverage layer and deployment automation artifacts would further strengthen engineering credibility in a portfolio context.",
+      "Team project on an existing codebase: I built features on this architecture rather than designing it from scratch.",
+      "Client code is proprietary; the architecture is described, not shown.",
     ],
     metrics: [
       { value: "5", label: "Solution Layers" },
@@ -664,9 +664,9 @@ export const projects: Project[] = [
     slug: "folio3-sales-bot",
     title: "Folio3 Sales Bot Platform",
     elevatorPitch:
-      "A production-oriented sales knowledge assistant combining hybrid semantic retrieval, source-linked trust, and admin-controlled ingestion — moving far beyond a generic chatbot wrapper into an engineered RAG platform.",
+      "A sales assistant that answers questions from Folio3's project material and links every answer to its source. FastAPI with hybrid Pinecone + PostgreSQL retrieval through LangChain, deployed with Docker Compose and traced with Langfuse.",
     domain: "Enterprise AI / Sales Enablement",
-    role: "Full-Stack AI Platform Engineering",
+    role: "Full-stack engineer",
     period: "2025",
     status: "Production",
     featured: false,
@@ -738,8 +738,7 @@ export const projects: Project[] = [
       "Admin-first data control: protected frontend routes for upload and content management",
     ],
     constraints: [
-      "Exact performance metrics and production traffic numbers are not in scope to disclose.",
-      "Intent-routing internals are based on the observed interactor/retriever code structure; confirm classification logic precision with production traffic data before publishing hard accuracy claims.",
+      "Internal Folio3 tool: usage and performance numbers are not mine to publish.",
     ],
     metrics: [
       { value: "Hybrid", label: "Retrieval Strategy" },
@@ -754,9 +753,9 @@ export const projects: Project[] = [
     slug: "farmdocs-platform",
     title: "FarmDocs Field Operations Platform",
     elevatorPitch:
-      "A cross-platform agritech monorepo connecting a React web admin for planners and a React Native mobile app for field workers — unified through a shared domain package that enforces consistent business rules across both surfaces.",
+      "An agritech product with a React web admin for planners and an offline-first React Native app for field workers, sharing one domain package. I upgraded the mobile app to React Native 0.81 and React 19 without a rewrite.",
     domain: "Agritech / Field Operations",
-    role: "Full-Stack Platform Engineering",
+    role: "Full-stack engineer · team project",
     period: "2025",
     status: "Production",
     featured: false,
@@ -816,7 +815,7 @@ export const projects: Project[] = [
       "Offline-first field app (Redux, SQLite) across 3 release environments",
     ],
     constraints: [
-      "wml hot-linking adds a manual step in the mobile development loop — a proper internal package publishing workflow would improve DX.",
+      "Team project at Folio3. Client code is proprietary; the architecture is described, not shown.",
     ],
     metrics: [
       { value: "RN 0.81", label: "Upgraded, no rewrite" },
@@ -828,74 +827,12 @@ export const projects: Project[] = [
       "Web Admin + Mobile App both consume @ecodocs/common → shared API client → backend. Fastlane handles env-specific distribution per platform.",
   },
   {
-    slug: "groalliance-platform",
-    title: "GroAlliance Client Platform Variant",
-    elevatorPitch:
-      "A client-specific deployment of the EcoDocs platform demonstrating product-line engineering: preserve a stable monorepo core, adapt branding and release parameters per client, avoid expensive full rewrites for each deployment.",
-    domain: "Agritech / Multi-Client Platform",
-    role: "Platform Engineering / Client Delivery",
-    period: "2025",
-    status: "Production",
-    featured: false,
-    tags: [
-      { label: "React (Web Admin)", category: "frontend" },
-      { label: "React Native", category: "mobile" },
-      { label: "Shared Domain Package", category: "infra" },
-      { label: "Fastlane", category: "infra" },
-      { label: "Yarn Workspaces", category: "infra" },
-    ],
-    challenge:
-      "Delivering the same operational platform to multiple clients while keeping the core stable. A full fork per client turns a manageable codebase into multiple divergent codebases with compounding maintenance costs.",
-    solution:
-      "A client variant built on the same monorepo scaffold (web + mobile + common) with GroAlliance-specific environment configuration, release parameters, and branding — while keeping the shared domain logic and Fastlane distribution mechanics identical to the base platform.",
-    architectureOverview: [
-      "Same monorepo structure as FarmDocs: web / mobile / common",
-      "Client-specific environment scripts and app identifiers per QA/UAT/production",
-      "Fastlane upload flows retain operational parity across client variants",
-      "nohoist configuration manages client-specific native dependency coordination",
-      "Shared domain package reused without modification — customization at edges only",
-    ],
-    engineeringDecisions: [
-      {
-        title: "Client Variant over Greenfield Clone",
-        decision: "GroAlliance is a configured deployment of the shared platform, not a separate codebase.",
-        reason:
-          "A full fork means every platform-level improvement must be manually backported to each client. A variant model keeps velocity at the platform level and delivers it to all clients.",
-        impact: "Platform improvements automatically benefit all client variants. Maintenance cost scales linearly, not per-client.",
-      },
-      {
-        title: "Stable Core with Customizable Edge",
-        decision: "Client specificity is confined to environment config, branding, and release parameters — never core domain logic.",
-        reason:
-          "Allowing client-specific changes in the core creates fragmentation. Clear customization boundaries keep the shared package trustworthy.",
-        impact: "Reduced divergence cost and predictable behavior across all deployments of the platform.",
-      },
-    ],
-    technicalHighlights: [
-      "Product-line engineering: one platform core, multiple client deployments",
-      "Client-specific environment and release configuration without domain logic forks",
-      "Operational parity: same QA/UAT/prod release mechanics across all variants",
-      "Fastlane distribution maintained consistently across client deployments",
-    ],
-    constraints: [
-      "Client-specific feature requests that bleed into shared domain logic create backport complexity — clear RFC-level rules needed to prevent this.",
-    ],
-    metrics: [
-      { value: "1", label: "Core Platform" },
-      { value: "Multi", label: "Client Variants" },
-      { value: "Zero", label: "Domain Forks" },
-      { value: "Prod", label: "Status" },
-    ],
-    architectureNote:
-      "GroAlliance-specific config → same web/mobile/common monorepo → Fastlane variant lanes → client-specific distribution.",
-  },
-  {
     slug: "realtime-transport-poc",
     title: "Real-Time Transport Comparison POC",
     elevatorPitch:
-      "A structured engineering experiment comparing Socket.io, MQTT, and WebRTC for real-time image synchronization — using the same product UX across all three transports to produce evidence-based protocol selection rather than opinion.",
+      "An experiment that ran the same image-sync feature over Socket.IO, MQTT and WebRTC, with latency measured inside the app, so the real-time protocol was chosen on evidence.",
     domain: "Real-Time Systems / Protocol Research (FEW Center)",
-    role: "Systems Engineering & POC Architecture",
+    role: "Engineer · proof of concept",
     period: "Feb – Mar 2026",
     status: "Research",
     featured: false,
@@ -942,9 +879,9 @@ export const projects: Project[] = [
       "Reusable foundation for future real-time feature transport selection",
     ],
     constraints: [
-      "Intended as an internal architectural experiment; production use would require managed/private MQTT broker governance.",
-      "WebRTC path uses public STUN — production deployment needs TURN server infrastructure for NAT traversal reliability.",
+      "A proof of concept, not a production system: it uses a public MQTT broker and public STUN servers.",
     ],
+    links: [{ label: "Source on GitHub", href: "https://github.com/hamzaowaisog/React-Native-Sockets-Poc" }],
     metrics: [
       { value: "3", label: "Protocols Compared" },
       { value: "Live", label: "Latency Metrics" },
@@ -954,77 +891,13 @@ export const projects: Project[] = [
     architectureNote:
       "Socket.io: Client ↔ Server ↔ Client (hop). MQTT: Client → Broker → Client (pub/sub). WebRTC: Client → Signaling Server → Peer connection (P2P).",
   },
-  {
-    slug: "sales-ingestion-tooling",
-    title: "Sales Data Ingestion Tooling",
-    elevatorPitch:
-      "A Python automation layer that uploads case-study URLs from CSV into the RAG platform's ingestion API — with operator-in-the-loop controls, explicit upload modes, and failure-safe execution that makes content pipeline reruns safe and repeatable.",
-    domain: "Data Engineering / AI Platform Operations",
-    role: "Trainee Software Engineer",
-    period: "2025",
-    status: "Internal",
-    featured: false,
-    tags: [
-      { label: "Python", category: "backend" },
-      { label: "requests", category: "backend" },
-      { label: "CSV automation", category: "data" },
-      { label: "FastAPI integration", category: "backend" },
-      { label: "Env-driven config", category: "infra" },
-    ],
-    challenge:
-      "Knowledge systems degrade when content updates are manual, inconsistent, or hard to rerun safely. One bad ingestion run can corrupt the vector store with duplicate or stale embeddings, and there is no safe rollback without clear operational tooling.",
-    solution:
-      "A scripted ingestion workflow that parses structured CSV rows (division, project, source URL), calls backend upload endpoints one item at a time, supports explicit upload modes (new / replace / add), logs failed row payloads for remediation, and includes interactive operator controls to pause and review before processing each row.",
-    architectureOverview: [
-      "CSV parser: normalizes rows, filters empty/invalid entries, maps to API payload shape",
-      "Upload modes: new (first-time), replace (deterministic rerun), add (append-only)",
-      "Operator controls: interactive next / all / skip flow for row-level review",
-      "API client: auth token + base URL via environment variables for context portability",
-      "Failure handling: stops on error, logs full payload for remediation, no silent failures",
-    ],
-    engineeringDecisions: [
-      {
-        title: "Explicit Upload Modes (new / replace / add)",
-        decision: "Three distinct ingestion behaviors rather than a single overwrite path.",
-        reason:
-          "A single overwrite is destructive by default. Explicit modes make the operator's intent clear — replace is safe for reruns, add prevents accidental overwrite, new guards against duplicates.",
-        impact: "Safe, repeatable ingestion operations. Content pipeline reruns are deterministic and auditable.",
-      },
-      {
-        title: "Operator-in-the-Loop Controls",
-        decision: "Interactive next / all / skip flow rather than fully automated batch processing.",
-        reason:
-          "Bulk automation without review gates is dangerous for content pipelines. An operator reviewing a sample before triggering bulk mode catches data hygiene issues before they contaminate the vector store.",
-        impact: "Reduced ingestion errors and improved operator confidence during content updates.",
-      },
-    ],
-    technicalHighlights: [
-      "CSV normalization with row filtering for data hygiene before API calls",
-      "Three ingestion modes: new, replace, add — aligned with backend lifecycle API",
-      "Row-level operator review: next / all / skip interactive controls",
-      "Auth token + base URL via env vars — portable across local/dev/staging contexts",
-      "Failure-safe: stops on error, logs full failed payload for targeted remediation",
-    ],
-    constraints: [
-      "Script-level metrics (success rate, rows processed) are not currently persisted — a run log would improve operational auditability.",
-      "Intended for internal operational workflows; not designed for end-user-facing use.",
-    ],
-    metrics: [
-      { value: "3", label: "Upload Modes" },
-      { value: "Safe", label: "Rerun Design" },
-      { value: "Traced", label: "Failure Output" },
-      { value: "Env", label: "Portable Config" },
-    ],
-    architectureNote:
-      "CSV rows → normalizer → mode selector (new/replace/add) → API client → FastAPI ingestion endpoint → Pinecone + PostgreSQL.",
-  },
 
   // ─── Research & AI Projects (from resume) ────────────────────────────────,
   {
     slug: "license-plate-detection",
     title: "License Plate Detection System",
     elevatorPitch:
-      "A real-time computer vision system that detects and annotates vehicle license plates using a custom-trained YOLO v8 model — with GPU-accelerated PyTorch training on a custom dataset and OpenCV preprocessing for production-ready inference.",
+      "A YOLOv8 model I trained on a custom annotated dataset to detect vehicles and license plates in video, using PyTorch and OpenCV.",
     domain: "Computer Vision / Real-Time Detection",
     role: "App Developer Intern",
     period: "Jun – Aug 2024",
@@ -1085,6 +958,7 @@ export const projects: Project[] = [
       "940MX GPU has limited VRAM — batch size and model scale are constrained by hardware, which affects training throughput.",
       "Custom dataset size is limited; additional data collection and augmentation would further improve generalization to unseen plate formats.",
     ],
+    links: [{ label: "Source on GitHub", href: "https://github.com/hamzaowaisog/LicensePlateDetection-Tracking" }],
     metrics: [
       { value: "YOLOv8", label: "Architecture" },
       { value: "GPU", label: "CUDA Training" },
@@ -1093,80 +967,6 @@ export const projects: Project[] = [
     ],
     architectureNote:
       "Input frames → OpenCV preprocessing → YOLO v8 (PyTorch / CUDA) → bounding box predictions → CSV coordinates + annotated output.",
-  },
-  {
-    // TODO(hamza): EEG project is not in the v5/v6 resume; confirm the period and whether to keep it.
-    slug: "eeg-emotion-classification",
-    title: "EEG-Based Emotion Classification",
-    elevatorPitch:
-      "A deep learning research project classifying human emotions from raw EEG brain signals — combining signal preprocessing, feature extraction, and neural network training to map brainwave patterns to emotional states.",
-    domain: "Deep Learning / Neuroscience Research",
-    role: "ML Research Engineering",
-    period: "2024–Present",
-    status: "Research",
-    featured: false,
-    tags: [
-      { label: "TensorFlow", category: "ai" },
-      { label: "Keras", category: "ai" },
-      { label: "Scikit-learn", category: "ai" },
-      { label: "EEG Signal Processing", category: "data" },
-      { label: "Python", category: "backend" },
-      { label: "Feature Extraction", category: "data" },
-    ],
-    challenge:
-      "EEG signals are high-dimensional, noisy, and highly subject-specific — making emotion classification extremely difficult. Raw brainwave data contains artifacts from muscle movement, eye blinks, and environmental interference that must be removed before any meaningful pattern can be learned.",
-    solution:
-      "A deep learning pipeline that starts with rigorous EEG data cleaning and artifact removal, applies feature extraction to transform raw time-series signals into structured representations, and trains TensorFlow/Keras neural network models to classify emotional states from the processed signal features.",
-    architectureOverview: [
-      "Raw EEG data ingestion: multi-channel brainwave recordings per subject",
-      "Preprocessing: artifact removal (eye blinks, muscle noise), bandpass filtering, epoch segmentation",
-      "Feature extraction: frequency-domain features (delta, theta, alpha, beta bands), statistical descriptors",
-      "Model architecture: deep neural networks trained with TensorFlow/Keras on extracted features",
-      "Evaluation: Scikit-learn metrics (accuracy, F1, confusion matrix) for cross-subject validation",
-      "Ongoing: exploring CNN and LSTM architectures for raw signal learning",
-    ],
-    engineeringDecisions: [
-      {
-        title: "Feature Engineering over End-to-End Raw Learning",
-        decision: "Applying domain-specific feature extraction (frequency bands, statistical features) before feeding data to the model.",
-        reason:
-          "EEG datasets are small relative to the signal dimensionality. Domain-specific features reduce input noise and dimensionality, improving model convergence with limited labeled data.",
-        impact: "More stable training and interpretable feature importance — critical for research reproducibility.",
-      },
-      {
-        title: "Rigorous Preprocessing as a First-Class Step",
-        decision: "Dedicated data cleaning and artifact removal pipeline before any model training.",
-        reason:
-          "EEG signals are extremely sensitive to noise. A model trained on uncleaned data learns artifacts, not emotions. Clean data is the most valuable investment in this domain.",
-        impact: "Higher signal-to-noise ratio in training data, reducing false pattern learning from non-emotion artifacts.",
-      },
-      {
-        title: "Scikit-learn for Evaluation, Not Training",
-        decision: "Using Scikit-learn metrics alongside TensorFlow/Keras training loop rather than a single framework.",
-        reason:
-          "Keras metrics are sufficient for gradient feedback but Scikit-learn provides richer evaluation tools (confusion matrices, classification reports, cross-validation) for research-grade assessment.",
-        impact: "Thorough, multi-metric evaluation that supports honest reporting of model performance.",
-      },
-    ],
-    technicalHighlights: [
-      "Multi-channel EEG signal pipeline: artifact removal → epoch segmentation → feature extraction",
-      "Frequency-band feature extraction: delta, theta, alpha, beta wave decomposition",
-      "TensorFlow + Keras neural network training on extracted EEG feature vectors",
-      "Scikit-learn evaluation: accuracy, F1, confusion matrix, cross-subject validation",
-      "Ongoing exploration of CNN architectures for end-to-end raw signal classification",
-    ],
-    constraints: [
-      "EEG datasets are small and highly subject-specific — cross-subject generalization remains the central open challenge.",
-      "Ongoing research; final model architecture and performance benchmarks are still being established.",
-    ],
-    metrics: [
-      { value: "Multi", label: "EEG Channels" },
-      { value: "4", label: "Freq. Bands" },
-      { value: "DL", label: "Architecture" },
-      { value: "Active", label: "Research" },
-    ],
-    architectureNote:
-      "Raw EEG → artifact removal → bandpass filter → epoch → feature extraction (freq bands) → TF/Keras model → emotion class prediction.",
   },
 ];
 
