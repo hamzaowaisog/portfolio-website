@@ -58,18 +58,6 @@ body {
   border-radius: 6px;
 }
 
-/* Lenis (smooth scroll) */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
 @layer components {
   .container-x {
     @apply mx-auto w-full max-w-container px-4 sm:px-6;
@@ -94,7 +82,7 @@ html.lenis body {
   }
 }
 
-/* Cursor spotlight for cards: --mx/--my are set by TiltCard on pointer move. */
+/* Cursor spotlight for cards: --mx/--my are set by Spotlight on pointer move. */
 .spotlight {
   position: relative;
   isolation: isolate;
@@ -166,13 +154,13 @@ html.lenis body {
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     transition:
-      opacity 550ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 350ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
     transition-delay: var(--d, 0ms);
   }
   .reveal:not([data-shown]) {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(12px);
   }
   .reveal:not([data-shown]) .stagger {
     opacity: 0;

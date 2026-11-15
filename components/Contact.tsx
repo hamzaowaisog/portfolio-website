@@ -1,6 +1,5 @@
 import { Download, Github, Linkedin, Mail } from "lucide-react";
 import Reveal from "./Reveal";
-import Magnetic from "./Magnetic";
 import { site } from "@/lib/site";
 
 export default function Contact() {
@@ -18,11 +17,9 @@ export default function Contact() {
           </p>
         </Reveal>
         <Reveal delay={0.1} className="mt-10 flex flex-wrap justify-center gap-3">
-          <Magnetic>
             <a href={`mailto:${site.email}`} className="btn-primary">
               <Mail size={16} aria-hidden /> {site.email}
             </a>
-          </Magnetic>
           <a href={site.resume} download className="btn-ghost">
             <Download size={16} aria-hidden /> Resume (PDF)
           </a>

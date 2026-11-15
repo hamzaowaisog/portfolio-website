@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import TiltCard from "./TiltCard";
+import Spotlight from "./Spotlight";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/types";
 
@@ -24,7 +24,7 @@ export function Status({ status }: { status: Project["status"] }) {
 export default function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
   const tags = project.tags.slice(0, compact ? 4 : 5);
   return (
-    <TiltCard className="card group h-full transition-colors hover:border-accent/40">
+    <Spotlight className="card group h-full transition-colors hover:border-accent/40">
       <Link href={`/projects/${project.slug}`} className="flex h-full flex-col rounded-card p-6 focus-visible:outline-offset-0">
         <div className="mb-4 flex items-center gap-2">
           <Status status={project.status} />
@@ -45,6 +45,6 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
           {project.tags.length > tags.length && <li className="chip">+{project.tags.length - tags.length}</li>}
         </ul>
       </Link>
-    </TiltCard>
+    </Spotlight>
   );
 }

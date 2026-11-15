@@ -101,7 +101,7 @@ export default function CommandPalette({ projects }: { projects: { slug: string;
         />
         <kbd className="hidden rounded border border-fg/15 px-1.5 py-0.5 font-mono text-[10px] text-text-subtle sm:block">esc</kbd>
       </div>
-      <ul id="cmd-list" role="listbox" aria-label="Results" data-lenis-prevent className="max-h-[50vh] overflow-y-auto p-2">
+      <ul id="cmd-list" role="listbox" aria-label="Results" className="max-h-[50vh] overflow-y-auto p-2">
         {results.length === 0 && <li className="px-3 py-6 text-center text-sm text-text-muted">No matches.</li>}
         {results.map((item, i) => (
           <li

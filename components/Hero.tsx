@@ -1,7 +1,6 @@
 import { ArrowDown, Download, Mail } from "lucide-react";
 import HeroCanvas from "./HeroCanvas";
 import Counter from "./Counter";
-import Magnetic from "./Magnetic";
 import { site } from "@/lib/site";
 
 // Sources: build_resume_v7.py + Resume_v5_ATS ("270+ REST endpoints and 730+ automated tests across own full-stack builds").
@@ -49,16 +48,12 @@ export default function Hero() {
         </p>
 
         <div className="rise mt-7 flex flex-wrap items-center gap-3" style={d(280)}>
-          <Magnetic>
             <a href={site.resume} download className="btn-primary">
               <Download size={16} aria-hidden /> Download resume
             </a>
-          </Magnetic>
-          <Magnetic>
             <a href="#contact" className="btn-ghost">
               <Mail size={16} aria-hidden /> Contact me
             </a>
-          </Magnetic>
           <a href="#work" className="ml-1 hidden items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary sm:inline-flex">
             View work <ArrowDown size={14} aria-hidden />
           </a>

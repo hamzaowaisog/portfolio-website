@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Providers from "@/components/Providers";
 import CommandPalette from "@/components/CommandPalette";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -61,11 +60,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink">
           Skip to content
         </a>
-        <Providers>
           <Navbar />
           {children}
           <Footer />
-        </Providers>
         <Analytics />
         <CommandPalette projects={projects.map(({ slug, title }) => ({ slug, title }))} />
       </body>
