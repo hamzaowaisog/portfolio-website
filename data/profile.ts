@@ -1,4 +1,4 @@
-// Career content. Source of truth: ../build_resume_v6.py and ../Muhammad_Hamza_Resume_v5_ATS.txt.
+// Career content. Source of truth: ../build_resume_v7.py and ../Muhammad_Hamza_Resume_v5_ATS.txt.
 
 export interface Role {
   title: string;
@@ -17,11 +17,11 @@ export const experience: Role[] = [
     period: "Jun 2025 – Present",
     current: true,
     points: [
-      { text: "Co-built AI Factory, Folio3's internal LLM pipeline that turns plain-English change requests into tested pull requests on .NET + PostgreSQL codebases; top contributor with 144 commits and 83 test files in 3 weeks.", slug: "ai-factory" },
-      { text: "Angus Media: took in-book PDF search from proof of concept to production Solr indexing.", slug: "angus-media-sale-book" },
-      { text: "LandTeller: closed a sold-lot data exposure and developed fixes for 3 critical tenant-isolation findings.", slug: "landteller" },
       { text: "MyEndo: own releases of a production iOS/Android app through v1.4 across 4 environments.", slug: "myendo-mobile" },
       { text: "FEW Center TED2: authored the architecture RFCs and eliminated iPad crashes from a ~900MB memory spike.", slug: "ted2-frontend-monorepo" },
+      { text: "Angus Media: took in-book PDF search from proof of concept to production Solr indexing.", slug: "angus-media-sale-book" },
+      { text: "LandTeller: closed a sold-lot data exposure and developed fixes for 3 critical tenant-isolation findings.", slug: "landteller" },
+      { text: "Co-built AI Factory, Folio3's internal LLM pipeline that turns plain-English change requests into tested pull requests on .NET + PostgreSQL codebases; top contributor with 144 commits and 83 test files in 3 weeks.", slug: "ai-factory" },
       { text: "FarmDocs: upgraded an offline-first field app to React Native 0.81 and React 19 without a rewrite.", slug: "farmdocs-platform" },
       { text: "EcoDocs and Sales Bot: a multi-tenant .NET 6 agritech API and a FastAPI RAG assistant.", slug: "ecodocs-backend" },
     ],

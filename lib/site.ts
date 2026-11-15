@@ -1,7 +1,7 @@
 export const site = {
   name: "Muhammad Hamza",
   role: "Full-Stack Software Engineer",
-  stack: "React Native · Angular · .NET",
+  stack: "React Native · React · Angular · ASP.NET Core",
   url: "https://portfolio-website-theta-inky-23.vercel.app",
   email: "hamzaowais31@gmail.com",
   github: "https://github.com/hamzaowaisog",
@@ -9,7 +9,7 @@ export const site = {
   resume: "/Muhammad-Hamza-Resume.pdf",
   location: "Karachi, Pakistan",
   description:
-    "Full-stack engineer at Folio3 who progressed from intern to Software Engineer, shipping React Native, Angular and ASP.NET Core systems for 7 clients.",
+    "Full-Stack Software Engineer at Folio3 building production React Native mobile apps, Angular and React web apps, and ASP.NET Core REST APIs for 7 clients.",
 };
 
 export const sections = [

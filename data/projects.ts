@@ -3,234 +3,6 @@ import type { Project } from "@/lib/types";
 // Order matters: featured projects appear in this order, and "next project" links follow it.
 export const projects: Project[] = [
   {
-    slug: "ai-factory",
-    title: "AI Factory",
-    elevatorPitch:
-      "An internal LLM pipeline, co-built with a colleague, that turns a plain-English change request into a tested pull request on .NET + PostgreSQL codebases. Tests are written first, checks run in sealed containers, and a merge gate blocks any change that has not been verified.",
-    domain: "Internal R&D / AI Developer Tooling",
-    role: "Co-builder · top contributor",
-    period: "Sep – Oct 2026",
-    status: "Internal R&D",
-    featured: true,
-    tags: [
-      { label: "TypeScript", category: "frontend" },
-      { label: "LLM Agents", category: "ai" },
-      { label: ".NET", category: "backend" },
-      { label: "PostgreSQL", category: "data" },
-      { label: "Sealed containers", category: "infra" },
-      { label: "Test-first", category: "infra" },
-    ],
-    challenge:
-      "LLM coding tools can produce plausible code quickly, but plausible is not the bar for a real .NET + PostgreSQL codebase. A change can break the data model, skip tests, or quietly cost more than expected. The goal was a pipeline that takes a plain-English request all the way to a pull request a reviewer can trust, not just a code suggestion.",
-    solution:
-      "A TypeScript CLI that moves a change request through gated steps. Each step selects its own LLM model, schema-affecting work must pass a data-model / ERD gate, design exports are handed off into the pipeline, tests are written before the implementation, and checks run in sealed containers. Every step's cost is logged, and a merge gate refuses to produce a pull request for unverified changes.",
-    architectureOverview: [
-      "CLI entry: a plain-English change request against a .NET + PostgreSQL codebase",
-      "Per-step model selection: each pipeline step picks its own LLM model",
-      "Data-model / ERD gate: schema-affecting changes are checked against the data model",
-      "Design-export handoff: exported designs are handed into the pipeline as input",
-      "Test-first: tests are written before code; checks run in sealed containers",
-      "Cost logging: LLM spend is recorded per step",
-      "Merge gate: unverified changes never become a pull request",
-    ],
-    engineeringDecisions: [
-      {
-        title: "Per-Step Model Selection",
-        decision: "Let each pipeline step choose its own LLM model instead of running the whole request on one model.",
-        reason:
-          "Steps ask very different things of a model. Pinning one model everywhere either overpays for simple steps or underpowers the hard ones.",
-        impact: "Model choice became a per-step setting, and per-step cost logging made the trade-off visible instead of guessed.",
-      },
-      {
-        title: "Tests First, Verified in Sealed Containers",
-        decision: "Write the tests before the implementation and run every check inside a sealed container.",
-        reason:
-          "Tests written after generated code tend to describe what the code does, not what the request asked for. Sealed containers keep a run from depending on, or changing, anything outside it.",
-        impact: "A passing run means the requested behaviour was specified up front and checked in isolation.",
-      },
-      {
-        title: "A Merge Gate That Says No",
-        decision: "Block the pull request whenever a change has not been verified, rather than opening it with warnings.",
-        reason: "A pull request is a request for a human's attention. Opening unverified ones moves the cost of checking onto the reviewer.",
-        impact: "Only verified changes reach review.",
-      },
-      {
-        title: "Data-Model / ERD Gate",
-        decision: "Route schema-affecting changes through an explicit data-model check.",
-        reason:
-          "On a PostgreSQL-backed system the schema is the most expensive thing to get wrong; a bad migration outlives the code that introduced it.",
-        impact: "Data-model changes are reviewed as data-model changes, not buried inside a larger diff.",
-      },
-    ],
-    technicalHighlights: [
-      "Co-built with a colleague; top contributor with 144 commits in 3 weeks",
-      "Wrote 83 test files for the pipeline itself",
-      "Per-step LLM model selection with per-step cost logging",
-      "Data-model / ERD gate for schema-affecting changes",
-      "Design-export handoff into the pipeline",
-      "Merge gate that blocks unverified changes",
-    ],
-    constraints: [
-      "Internal R&D at Folio3: built and evaluated in-house, not released as a product.",
-      "Co-built: the design was shared with a colleague; the highlights above are the parts I built.",
-    ],
-    // TODO(hamza): add an outcome metric (e.g. requests that reached a verified PR) if you have a real number.
-    metrics: [
-      { value: "144", label: "Commits (top contributor)" },
-      { value: "83", label: "Test files" },
-      { value: "3", label: "Weeks" },
-    ],
-    architectureNote:
-      "Change request → CLI → per-step model selection (+ cost log) → data-model / ERD gate → tests first → implementation → checks in sealed container → merge gate → pull request.",
-  },
-  {
-    slug: "angus-media-sale-book",
-    title: "Angus Media Sale Book Portal",
-    elevatorPitch:
-      "A livestock sale-book portal where I took in-book PDF search from proof of concept to production Solr indexing, with a custom layout parser that rebuilds tables and keeps search highlights accurate at any zoom.",
-    domain: "Livestock Media / Document Search",
-    role: "Full-Stack Engineer",
-    period: "Aug – Sep 2026",
-    status: "Production",
-    featured: true,
-    tags: [
-      { label: "Angular", category: "frontend" },
-      { label: "ASP.NET Web API", category: "backend" },
-      { label: "C#", category: "backend" },
-      { label: "iTextSharp", category: "data" },
-      { label: "Apache Solr", category: "data" },
-      { label: "Hangfire", category: "infra" },
-    ],
-    challenge:
-      "Sale books are PDFs with multi-column layouts and tables. Plain text extraction scrambles reading order and flattens tables, and a search highlight is only useful if it still sits on the matched words when the reader zooms. Separately, lot imports were all-or-nothing: one invalid file aborted the whole batch.",
-    solution:
-      "An iTextSharp layout parser that splits each page with recursive XY-cut region detection, rebuilds tables from text coordinates, and stores page-relative positions so highlights stay aligned at any zoom. It runs inside the existing Hangfire job and feeds Apache Solr. Lot import was rebuilt as a multi-file upload with per-file partial success.",
-    architectureOverview: [
-      "Hangfire: the existing background job now runs extraction and indexing",
-      "Layout parser (iTextSharp): recursive XY-cut region detection for reading order",
-      "Table reconstruction: rows and columns rebuilt from text coordinates",
-      "Positions: stored page-relative so highlights scale with zoom",
-      "Apache Solr: indexed text and positions power in-book search",
-      "Angular + ASP.NET Web API: queue and filter features, multi-file lot import",
-    ],
-    engineeringDecisions: [
-      {
-        title: "Recursive XY-Cut Instead of Raw Text Order",
-        decision: "Segment each page into regions by recursively cutting along whitespace gaps before reading text.",
-        reason: "PDF text order follows how the file was written, not how a person reads a multi-column page.",
-        impact: "Indexed text follows the page's reading order, so search hits land in the right block.",
-      },
-      {
-        title: "Page-Relative Coordinates",
-        decision: "Store every text position relative to the page size rather than in absolute points.",
-        reason: "Absolute positions are only correct at one zoom level; the viewer renders at many.",
-        impact: "Highlights stay on the matched words at any zoom.",
-      },
-      {
-        title: "Line Grouping from O(n²) to O(n)",
-        decision: "Replaced a pairwise line-grouping step with a single linear pass.",
-        reason: "Comparing every text fragment with every other grows quadratically with page density.",
-        impact: "The step now grows linearly with the number of text fragments on a page.",
-      },
-      {
-        title: "Per-File Partial Success for Lot Imports",
-        decision: "Rebuilt lot import as a multi-file upload that reports success or failure per file.",
-        reason: "In an all-or-nothing import, one bad file throws away every good one in the batch.",
-        impact: "One invalid file no longer aborts the batch; tested with 5 categories in a single request.",
-      },
-    ],
-    technicalHighlights: [
-      "Took in-book PDF search from proof of concept to production Solr indexing",
-      "Recursive XY-cut region detection and coordinate-based table reconstruction",
-      "Ran inside the existing Hangfire job: no new infrastructure",
-      "Cut a line-grouping step from O(n²) to O(n)",
-      "Shipped 7 queue and filter features and fixed 3 query bugs",
-      "Fixed video downloads that saved an HTML page as .mp4",
-    ],
-    constraints: [
-      "Client code and documents are proprietary; the diagram is reconstructed at the architecture level.",
-    ],
-    metrics: [
-      { value: "O(n)", label: "Line grouping, was O(n²)" },
-      { value: "7", label: "Features shipped" },
-      { value: "3", label: "Query bugs fixed" },
-      { value: "Per-file", label: "Import results" },
-    ],
-    architectureNote:
-      "PDF upload → existing Hangfire job → XY-cut regions → table reconstruction → page-relative positions → Apache Solr → search hits highlighted in the viewer at any zoom.",
-  },
-  {
-    slug: "landteller",
-    title: "LandTeller / ViewTeller",
-    elevatorPitch:
-      "A multi-tenant land-sales platform on a .NET API and Frappe/ERPNext, where I closed a sold-lot data exposure, developed fixes for 3 critical tenant-isolation findings, and built sales dashboards covered by 18 automated tests.",
-    domain: "Land Sales / Multi-Tenant Platform",
-    role: "Software Engineer · security and data",
-    period: "Oct 2026 – Present",
-    status: "In progress",
-    featured: true,
-    tags: [
-      { label: ".NET", category: "backend" },
-      { label: "Frappe/ERPNext", category: "backend" },
-      { label: "Frappe Insights", category: "data" },
-      { label: "Multi-tenancy", category: "infra" },
-      { label: "Security review", category: "infra" },
-    ],
-    challenge:
-      "In a multi-tenant platform, one missing check can show a tenant data that belongs to someone else. A security review raised 33 findings, 5 of them critical and 6 high, and sold-lot data was reachable where it should not have been. Sales dashboards also needed correct data underneath them.",
-    solution:
-      "Closed the sold-lot exposure across the .NET API and the Frappe/ERPNext app, with a documented 403 contract for the frontend and .NET regression tests. Developed fixes for 3 critical tenant-isolation findings across 3 repositories. Built Frappe Insights sales dashboards backed by 2 data-repair patches and 18 automated tests.",
-    architectureOverview: [
-      ".NET API: tenant-scoped access checks; sold lots return a documented 403",
-      "Frontend: consumes the 403 contract instead of guessing at empty results",
-      "Regression tests: .NET test suites so the fixes cannot silently regress",
-      "Frappe/ERPNext: sales data source for reporting",
-      "Data repair: 2 patches that fix the records the dashboards read",
-      "Frappe Insights: sales dashboards with 18 automated tests",
-    ],
-    engineeringDecisions: [
-      {
-        title: "A Documented 403 Contract",
-        decision: "Return an explicit, documented 403 for sold lots instead of quietly filtering them out.",
-        reason:
-          "Silent filtering makes 'not allowed' look like 'not found', and the frontend cannot tell the two apart. An explicit status is testable on both sides.",
-        impact: "The frontend has a stable contract, and the rule is pinned by .NET regression tests.",
-      },
-      {
-        title: "Regression Tests With Every Security Fix",
-        decision: "Pair each access-control fix with tests that fail if the hole reopens.",
-        reason: "Security fixes regress quietly; nobody notices a missing check until it is exploited.",
-        impact: "Added 2 .NET test suites around the tenant-isolation fixes; the sold-lot fix has its own regression tests.",
-      },
-      {
-        title: "Repair the Data Before Charting It",
-        decision: "Wrote 2 data-repair patches before building the sales dashboards.",
-        reason: "A dashboard over inconsistent records only makes wrong numbers look official.",
-        impact: "Dashboards are built on repaired data and covered by 18 automated tests.",
-      },
-    ],
-    technicalHighlights: [
-      "Closed a sold-lot data exposure across the .NET API and Frappe/ERPNext app",
-      "Developed fixes for 3 critical tenant-isolation findings from a 33-finding security review",
-      "2 .NET test suites so the fixes cannot regress",
-      "Built Frappe Insights sales dashboards with 18 automated tests",
-      "2 data-repair patches under the dashboards",
-      "Fixed broken attachment links",
-    ],
-    constraints: [
-      "Ongoing engagement: the tenant-isolation fixes are developed and tested but not yet merged, and the dashboards are built but not yet launched.",
-      "Client code is proprietary; no findings, endpoints or data are shown here.",
-    ],
-    metrics: [
-      { value: "33", label: "Review findings" },
-      { value: "3", label: "Critical fixes developed" },
-      { value: "18", label: "Dashboard tests" },
-      { value: "2", label: ".NET test suites" },
-    ],
-    architectureNote:
-      "Frontend → .NET API (tenant checks; sold lots → documented 403) ← regression suites. ERPNext data → 2 repair patches → Frappe Insights dashboards ← 18 tests.",
-  },
-  {
     slug: "myendo-mobile",
     title: "MyEndo Mobile Platform",
     elevatorPitch:
@@ -425,6 +197,234 @@ export const projects: Project[] = [
     ],
     architectureNote:
       "Apps consume @ted2/* packages. Packages have unidirectional dependency rules. Turborepo orchestrates builds. RFC enforces architecture boundaries.",
+  },
+  {
+    slug: "angus-media-sale-book",
+    title: "Angus Media Sale Book Portal",
+    elevatorPitch:
+      "A livestock sale-book portal where I took in-book PDF search from proof of concept to production Solr indexing, with a custom layout parser that rebuilds tables and keeps search highlights accurate at any zoom.",
+    domain: "Livestock Media / Document Search",
+    role: "Full-Stack Engineer",
+    period: "Aug – Sep 2026",
+    status: "Production",
+    featured: true,
+    tags: [
+      { label: "Angular", category: "frontend" },
+      { label: "ASP.NET Web API", category: "backend" },
+      { label: "C#", category: "backend" },
+      { label: "iTextSharp", category: "data" },
+      { label: "Apache Solr", category: "data" },
+      { label: "Hangfire", category: "infra" },
+    ],
+    challenge:
+      "Sale books are PDFs with multi-column layouts and tables. Plain text extraction scrambles reading order and flattens tables, and a search highlight is only useful if it still sits on the matched words when the reader zooms. Separately, lot imports were all-or-nothing: one invalid file aborted the whole batch.",
+    solution:
+      "An iTextSharp layout parser that splits each page with recursive XY-cut region detection, rebuilds tables from text coordinates, and stores page-relative positions so highlights stay aligned at any zoom. It runs inside the existing Hangfire job and feeds Apache Solr. Lot import was rebuilt as a multi-file upload with per-file partial success.",
+    architectureOverview: [
+      "Hangfire: the existing background job now runs extraction and indexing",
+      "Layout parser (iTextSharp): recursive XY-cut region detection for reading order",
+      "Table reconstruction: rows and columns rebuilt from text coordinates",
+      "Positions: stored page-relative so highlights scale with zoom",
+      "Apache Solr: indexed text and positions power in-book search",
+      "Angular + ASP.NET Web API: queue and filter features, multi-file lot import",
+    ],
+    engineeringDecisions: [
+      {
+        title: "Recursive XY-Cut Instead of Raw Text Order",
+        decision: "Segment each page into regions by recursively cutting along whitespace gaps before reading text.",
+        reason: "PDF text order follows how the file was written, not how a person reads a multi-column page.",
+        impact: "Indexed text follows the page's reading order, so search hits land in the right block.",
+      },
+      {
+        title: "Page-Relative Coordinates",
+        decision: "Store every text position relative to the page size rather than in absolute points.",
+        reason: "Absolute positions are only correct at one zoom level; the viewer renders at many.",
+        impact: "Highlights stay on the matched words at any zoom.",
+      },
+      {
+        title: "Line Grouping from O(n²) to O(n)",
+        decision: "Replaced a pairwise line-grouping step with a single linear pass.",
+        reason: "Comparing every text fragment with every other grows quadratically with page density.",
+        impact: "The step now grows linearly with the number of text fragments on a page.",
+      },
+      {
+        title: "Per-File Partial Success for Lot Imports",
+        decision: "Rebuilt lot import as a multi-file upload that reports success or failure per file.",
+        reason: "In an all-or-nothing import, one bad file throws away every good one in the batch.",
+        impact: "One invalid file no longer aborts the batch; tested with 5 categories in a single request.",
+      },
+    ],
+    technicalHighlights: [
+      "Took in-book PDF search from proof of concept to production Solr indexing",
+      "Recursive XY-cut region detection and coordinate-based table reconstruction",
+      "Ran inside the existing Hangfire job: no new infrastructure",
+      "Cut a line-grouping step from O(n²) to O(n)",
+      "Shipped 7 queue and filter features and fixed 3 query bugs",
+      "Fixed video downloads that saved an HTML page as .mp4",
+    ],
+    constraints: [
+      "Client code and documents are proprietary; the diagram is reconstructed at the architecture level.",
+    ],
+    metrics: [
+      { value: "O(n)", label: "Line grouping, was O(n²)" },
+      { value: "7", label: "Features shipped" },
+      { value: "3", label: "Query bugs fixed" },
+      { value: "Per-file", label: "Import results" },
+    ],
+    architectureNote:
+      "PDF upload → existing Hangfire job → XY-cut regions → table reconstruction → page-relative positions → Apache Solr → search hits highlighted in the viewer at any zoom.",
+  },
+  {
+    slug: "landteller",
+    title: "LandTeller / ViewTeller",
+    elevatorPitch:
+      "A multi-tenant land-sales platform on a .NET API and Frappe/ERPNext, where I closed a sold-lot data exposure, developed fixes for 3 critical tenant-isolation findings, and built sales dashboards covered by 18 automated tests.",
+    domain: "Land Sales / Multi-Tenant Platform",
+    role: "Software Engineer · security and data",
+    period: "Oct 2026 – Present",
+    status: "In progress",
+    featured: true,
+    tags: [
+      { label: ".NET", category: "backend" },
+      { label: "Frappe/ERPNext", category: "backend" },
+      { label: "Frappe Insights", category: "data" },
+      { label: "Multi-tenancy", category: "infra" },
+      { label: "Security review", category: "infra" },
+    ],
+    challenge:
+      "In a multi-tenant platform, one missing check can show a tenant data that belongs to someone else. A security review raised 33 findings, 5 of them critical and 6 high, and sold-lot data was reachable where it should not have been. Sales dashboards also needed correct data underneath them.",
+    solution:
+      "Closed the sold-lot exposure across the .NET API and the Frappe/ERPNext app, with a documented 403 contract for the frontend and .NET regression tests. Developed fixes for 3 critical tenant-isolation findings across 3 repositories. Built Frappe Insights sales dashboards backed by 2 data-repair patches and 18 automated tests.",
+    architectureOverview: [
+      ".NET API: tenant-scoped access checks; sold lots return a documented 403",
+      "Frontend: consumes the 403 contract instead of guessing at empty results",
+      "Regression tests: .NET test suites so the fixes cannot silently regress",
+      "Frappe/ERPNext: sales data source for reporting",
+      "Data repair: 2 patches that fix the records the dashboards read",
+      "Frappe Insights: sales dashboards with 18 automated tests",
+    ],
+    engineeringDecisions: [
+      {
+        title: "A Documented 403 Contract",
+        decision: "Return an explicit, documented 403 for sold lots instead of quietly filtering them out.",
+        reason:
+          "Silent filtering makes 'not allowed' look like 'not found', and the frontend cannot tell the two apart. An explicit status is testable on both sides.",
+        impact: "The frontend has a stable contract, and the rule is pinned by .NET regression tests.",
+      },
+      {
+        title: "Regression Tests With Every Security Fix",
+        decision: "Pair each access-control fix with tests that fail if the hole reopens.",
+        reason: "Security fixes regress quietly; nobody notices a missing check until it is exploited.",
+        impact: "Added 2 .NET test suites around the tenant-isolation fixes; the sold-lot fix has its own regression tests.",
+      },
+      {
+        title: "Repair the Data Before Charting It",
+        decision: "Wrote 2 data-repair patches before building the sales dashboards.",
+        reason: "A dashboard over inconsistent records only makes wrong numbers look official.",
+        impact: "Dashboards are built on repaired data and covered by 18 automated tests.",
+      },
+    ],
+    technicalHighlights: [
+      "Closed a sold-lot data exposure across the .NET API and Frappe/ERPNext app",
+      "Developed fixes for 3 critical tenant-isolation findings from a 33-finding security review",
+      "2 .NET test suites so the fixes cannot regress",
+      "Built Frappe Insights sales dashboards with 18 automated tests",
+      "2 data-repair patches under the dashboards",
+      "Fixed broken attachment links",
+    ],
+    constraints: [
+      "Ongoing engagement: the tenant-isolation fixes are developed and tested but not yet merged, and the dashboards are built but not yet launched.",
+      "Client code is proprietary; no findings, endpoints or data are shown here.",
+    ],
+    metrics: [
+      { value: "33", label: "Review findings" },
+      { value: "3", label: "Critical fixes developed" },
+      { value: "18", label: "Dashboard tests" },
+      { value: "2", label: ".NET test suites" },
+    ],
+    architectureNote:
+      "Frontend → .NET API (tenant checks; sold lots → documented 403) ← regression suites. ERPNext data → 2 repair patches → Frappe Insights dashboards ← 18 tests.",
+  },
+  {
+    slug: "ai-factory",
+    title: "AI Factory",
+    elevatorPitch:
+      "An internal LLM pipeline, co-built with a colleague, that turns a plain-English change request into a tested pull request on .NET + PostgreSQL codebases. Tests are written first, checks run in sealed containers, and a merge gate blocks any change that has not been verified.",
+    domain: "Internal R&D / AI Developer Tooling",
+    role: "Co-builder · top contributor",
+    period: "Sep – Oct 2026",
+    status: "Internal R&D",
+    featured: true,
+    tags: [
+      { label: "TypeScript", category: "frontend" },
+      { label: "LLM Agents", category: "ai" },
+      { label: ".NET", category: "backend" },
+      { label: "PostgreSQL", category: "data" },
+      { label: "Sealed containers", category: "infra" },
+      { label: "Test-first", category: "infra" },
+    ],
+    challenge:
+      "LLM coding tools can produce plausible code quickly, but plausible is not the bar for a real .NET + PostgreSQL codebase. A change can break the data model, skip tests, or quietly cost more than expected. The goal was a pipeline that takes a plain-English request all the way to a pull request a reviewer can trust, not just a code suggestion.",
+    solution:
+      "A TypeScript CLI that moves a change request through gated steps. Each step selects its own LLM model, schema-affecting work must pass a data-model / ERD gate, design exports are handed off into the pipeline, tests are written before the implementation, and checks run in sealed containers. Every step's cost is logged, and a merge gate refuses to produce a pull request for unverified changes.",
+    architectureOverview: [
+      "CLI entry: a plain-English change request against a .NET + PostgreSQL codebase",
+      "Per-step model selection: each pipeline step picks its own LLM model",
+      "Data-model / ERD gate: schema-affecting changes are checked against the data model",
+      "Design-export handoff: exported designs are handed into the pipeline as input",
+      "Test-first: tests are written before code; checks run in sealed containers",
+      "Cost logging: LLM spend is recorded per step",
+      "Merge gate: unverified changes never become a pull request",
+    ],
+    engineeringDecisions: [
+      {
+        title: "Per-Step Model Selection",
+        decision: "Let each pipeline step choose its own LLM model instead of running the whole request on one model.",
+        reason:
+          "Steps ask very different things of a model. Pinning one model everywhere either overpays for simple steps or underpowers the hard ones.",
+        impact: "Model choice became a per-step setting, and per-step cost logging made the trade-off visible instead of guessed.",
+      },
+      {
+        title: "Tests First, Verified in Sealed Containers",
+        decision: "Write the tests before the implementation and run every check inside a sealed container.",
+        reason:
+          "Tests written after generated code tend to describe what the code does, not what the request asked for. Sealed containers keep a run from depending on, or changing, anything outside it.",
+        impact: "A passing run means the requested behaviour was specified up front and checked in isolation.",
+      },
+      {
+        title: "A Merge Gate That Says No",
+        decision: "Block the pull request whenever a change has not been verified, rather than opening it with warnings.",
+        reason: "A pull request is a request for a human's attention. Opening unverified ones moves the cost of checking onto the reviewer.",
+        impact: "Only verified changes reach review.",
+      },
+      {
+        title: "Data-Model / ERD Gate",
+        decision: "Route schema-affecting changes through an explicit data-model check.",
+        reason:
+          "On a PostgreSQL-backed system the schema is the most expensive thing to get wrong; a bad migration outlives the code that introduced it.",
+        impact: "Data-model changes are reviewed as data-model changes, not buried inside a larger diff.",
+      },
+    ],
+    technicalHighlights: [
+      "Co-built with a colleague; top contributor with 144 commits in 3 weeks",
+      "Wrote 83 test files for the pipeline itself",
+      "Per-step LLM model selection with per-step cost logging",
+      "Data-model / ERD gate for schema-affecting changes",
+      "Design-export handoff into the pipeline",
+      "Merge gate that blocks unverified changes",
+    ],
+    constraints: [
+      "Internal R&D at Folio3: built and evaluated in-house, not released as a product.",
+      "Co-built: the design was shared with a colleague; the highlights above are the parts I built.",
+    ],
+    // TODO(hamza): add an outcome metric (e.g. requests that reached a verified PR) if you have a real number.
+    metrics: [
+      { value: "144", label: "Commits (top contributor)" },
+      { value: "83", label: "Test files" },
+      { value: "3", label: "Weeks" },
+    ],
+    architectureNote:
+      "Change request → CLI → per-step model selection (+ cost log) → data-model / ERD gate → tests first → implementation → checks in sealed container → merge gate → pull request.",
   },
   {
     slug: "malani-wholesale",
