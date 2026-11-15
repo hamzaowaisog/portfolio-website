@@ -100,7 +100,7 @@ export default async function ProjectPage({ params }: Props) {
             </Reveal>
             <ul className="space-y-3">
               {project.constraints.map((c) => (
-                <li key={c} className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4 text-sm leading-relaxed text-text-muted">
+                <li key={c} className="card p-4 text-sm leading-relaxed text-text-muted">
                   {c}
                 </li>
               ))}
