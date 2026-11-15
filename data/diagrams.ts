@@ -251,67 +251,8 @@ export const diagrams: Record<string, DiagramData> = {
     ],
   },
 
-  "groalliance-platform": {
-    title: "groalliance.variant.architecture",
-    nodes: [
-      { id: "core",    label: "Platform Core",   sublabel: "Shared web/mobile/common", type: "service" },
-      { id: "env",     label: "Client Config",   sublabel: "Env / app IDs / branding", type: "infra" },
-      { id: "web",     label: "Web Admin",        sublabel: "GroAlliance branded",      type: "client" },
-      { id: "mobile",  label: "Mobile App",       sublabel: "GroAlliance branded",      type: "client" },
-      { id: "fl",      label: "Fastlane Lanes",   sublabel: "QA / UAT / Prod",          type: "infra" },
-      { id: "backend", label: "Backend API",       sublabel: "EcoDocs Core",             type: "external" },
-    ],
-    edges: [
-      { from: "core",   to: "web",     label: "powers",    labelT: 0.35 },
-      { from: "core",   to: "mobile",  label: "powers",    labelT: 0.60, labelOffsetY: 10 },
-      { from: "env",    to: "web",     label: "configure", labelT: 0.35, labelOffsetY: -10 },
-      { from: "env",    to: "mobile",  label: "configure", labelT: 0.60 },
-      { from: "mobile", to: "fl",      label: "release",   labelT: 0.50 },
-      { from: "web",    to: "backend", label: "API calls", labelT: 0.50 },
-    ],
-  },
 
-  "sales-ingestion-tooling": {
-    title: "ingestion.pipeline.architecture",
-    nodes: [
-      { id: "csv",     label: "CSV Source",     sublabel: "URLs + metadata",        type: "client" },
-      { id: "parser",  label: "Row Parser",      sublabel: "Normalize + filter",     type: "service" },
-      { id: "mode",    label: "Mode Selector",   sublabel: "new / replace / add",    type: "service" },
-      { id: "ctrl",    label: "Operator Loop",   sublabel: "next / all / skip",      type: "service" },
-      { id: "apicli",  label: "API Client",       sublabel: "auth + base URL",        type: "api" },
-      { id: "ingest",  label: "FastAPI Endpoint", sublabel: "Ingestion API",          type: "api" },
-      { id: "store",   label: "Pinecone + PG",   sublabel: "Vector + metadata",      type: "data" },
-    ],
-    edges: [
-      { from: "csv",    to: "parser",  label: "raw rows" },
-      { from: "parser", to: "mode",    label: "clean rows" },
-      { from: "mode",   to: "ctrl",    label: "staged" },
-      { from: "ctrl",   to: "apicli",  label: "approved" },
-      { from: "apicli", to: "ingest",  label: "POST" },
-      { from: "ingest", to: "store",   label: "embed + store" },
-    ],
-  },
 
-  "eeg-emotion-classification": {
-    title: "eeg.classification.pipeline",
-    nodes: [
-      { id: "raw",     label: "Raw EEG Data",    sublabel: "Multi-channel signals",     type: "data" },
-      { id: "clean",   label: "Preprocessing",   sublabel: "Artifact removal + filter", type: "service" },
-      { id: "feat",    label: "Feature Extract",  sublabel: "Freq. bands + stats",       type: "service" },
-      { id: "split",   label: "Train / Val Split",sublabel: "Scikit-learn",              type: "service" },
-      { id: "model",   label: "Keras Model",      sublabel: "TensorFlow DNN",            type: "ai" },
-      { id: "eval",    label: "Evaluation",        sublabel: "F1 · Accuracy · CM",        type: "service" },
-      { id: "pred",    label: "Emotion Class",     sublabel: "Output prediction",         type: "client" },
-    ],
-    edges: [
-      { from: "raw",   to: "clean",  label: "raw signals" },
-      { from: "clean", to: "feat",   label: "clean epochs" },
-      { from: "feat",  to: "split",  label: "feature vectors" },
-      { from: "split", to: "model",  label: "train set" },
-      { from: "model", to: "eval",   label: "predictions" },
-      { from: "eval",  to: "pred",   label: "class label" },
-    ],
-  },
 
   "license-plate-detection": {
     title: "license.plate.detection.pipeline",

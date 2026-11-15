@@ -14,7 +14,7 @@ export default function Contact() {
             Have a hard problem? <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">Let&apos;s talk.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-text-muted">
-            I&apos;m open to software engineering roles across mobile, web and backend. Email is the fastest way to reach me.
+            I&apos;m open to full-stack and React Native software engineering roles. Email is the fastest way to reach me.
           </p>
         </Reveal>
         <Reveal delay={0.1} className="mt-10 flex flex-wrap justify-center gap-3">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Status } from "@/components/ProjectCard";
 import type { Project } from "@/lib/types";
 
@@ -30,6 +30,18 @@ export default function ProjectHero({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
+
+        {project.links && (
+          <ul className="mt-6 flex flex-wrap gap-3">
+            {project.links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                  {l.label} <ArrowUpRight size={15} aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {project.metrics && (
           <dl className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">

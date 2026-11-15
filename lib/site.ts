@@ -15,7 +15,7 @@ export const site = {
 export const sections = [
   { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
-  { id: "leadership", label: "Leadership" },
+  { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact" },
 ];

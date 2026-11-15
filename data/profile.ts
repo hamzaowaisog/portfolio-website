@@ -32,7 +32,7 @@ export const experience: Role[] = [
     place: "Karachi",
     period: "Feb – Jun 2025",
     points: [
-      { text: "Built the RAG ingestion CLI for a FastAPI Sales Bot, with 3 reprocessing modes that prevent duplicate or stale vectors.", slug: "sales-ingestion-tooling" },
+      { text: "Built the RAG ingestion CLI for a FastAPI Sales Bot, with 3 reprocessing modes that prevent duplicate or stale vectors.", slug: "folio3-sales-bot" },
       { text: "Built RESTful C# / ASP.NET Core APIs and integrated them with React Native clients (Axios, Redux Toolkit)." },
     ],
   },
@@ -53,13 +53,6 @@ export const experience: Role[] = [
     period: "May – Aug 2023",
     points: [{ text: "Built and integrated Java APIs for data fetching and storage, delivering a working project from inception to completion." }],
   },
-];
-
-export const leadership = [
-  { title: "Mentoring", body: "Mentor interns at Folio3." },
-  { title: "Code review", body: "Review teammates' pull requests across client projects." },
-  { title: "Architecture RFCs", body: "Authored the RFCs that govern the TED2 Next.js + React Native monorepo.", slug: "ted2-frontend-monorepo" },
-  { title: "Release ownership", body: "Own MyEndo's releases through v1.4 via Fastlane, across 4 environments.", slug: "myendo-mobile" },
 ];
 
 export const credentials = [
