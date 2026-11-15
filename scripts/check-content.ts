@@ -15,5 +15,5 @@ for (const [k, d] of Object.entries(diagrams)) {
   for (const e of d.edges) assert.ok(ids.has(e.from) && ids.has(e.to), `${k}: edge ${e.from}->${e.to}`);
 }
 assert.equal(projects.filter((p) => p.featured).map((p) => p.slug).join(),
-  "ai-factory,angus-media-sale-book,landteller,myendo-mobile,ted2-frontend-monorepo,malani-wholesale");
+  "myendo-mobile,ted2-frontend-monorepo,angus-media-sale-book,landteller,ai-factory,malani-wholesale");
 console.log(`ok: ${projects.length} projects, ${Object.keys(diagrams).length} diagrams`);

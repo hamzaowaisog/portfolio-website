@@ -33,7 +33,9 @@ export default function ProjectCard({ project, compact = false }: { project: Pro
         </div>
         <h3 className={cn("font-semibold tracking-tight text-text-primary", compact ? "text-base" : "text-xl")}>{project.title}</h3>
         <p className="mb-3 mt-1 font-mono text-[11px] uppercase tracking-wider text-text-subtle">{project.domain}</p>
-        <p className={cn("flex-1 leading-relaxed text-text-muted", compact ? "line-clamp-3 text-sm" : "line-clamp-4 text-sm")}>{project.elevatorPitch}</p>
+        <div className="flex-1">
+          <p className={cn("text-sm leading-relaxed text-text-muted", compact ? "line-clamp-3" : "line-clamp-4")}>{project.elevatorPitch}</p>
+        </div>
         <ul aria-label="Stack" className="mt-5 flex flex-wrap gap-1.5 border-t border-fg/5 pt-4">
           {tags.map((t) => (
             <li key={t.label} className="chip">

@@ -9,7 +9,7 @@ export default function Work() {
         <Reveal>
           <p className="eyebrow">Featured work</p>
           <h2 className="text-display-md font-semibold">
-            Recent and strongest first. <span className="text-text-muted">Each one opens into a full case study.</span>
+            Strongest first. <span className="text-text-muted">Each one opens into a full case study.</span>
           </h2>
         </Reveal>
         <ul className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">

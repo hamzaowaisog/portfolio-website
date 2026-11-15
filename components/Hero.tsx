@@ -4,7 +4,7 @@ import Counter from "./Counter";
 import Magnetic from "./Magnetic";
 import { site } from "@/lib/site";
 
-// Sources: build_resume_v6.py + Resume_v5_ATS ("270+ REST endpoints and 730+ automated tests across own full-stack builds").
+// Sources: build_resume_v7.py + Resume_v5_ATS ("270+ REST endpoints and 730+ automated tests across own full-stack builds").
 const stats = [
   { value: 7, suffix: "", label: "clients shipped for" },
   { value: 270, suffix: "+", label: "REST endpoints designed" },
@@ -44,8 +44,8 @@ export default function Hero() {
         </p>
 
         <p className="rise-solid mt-4 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg" style={d(220)}>
-          I progressed from intern to Software Engineer at Folio3, shipping production systems for 7 clients across healthcare,
-          agritech, land sales and livestock media, and I take hard problems from prototype to production.
+          I build production React Native mobile apps, Angular and React web apps, and ASP.NET Core REST APIs at Folio3, for 7
+          clients across healthcare, agritech and real estate. I own releases of a live iOS and Android healthcare app.
         </p>
 
         <div className="rise mt-7 flex flex-wrap items-center gap-3" style={d(280)}>
