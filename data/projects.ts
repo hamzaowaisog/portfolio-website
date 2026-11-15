@@ -429,6 +429,15 @@ export const projects: Project[] = [
   },
   {
     slug: "malani-wholesale",
+    screenshots: {
+      note: "Screenshots from a local build running on made-up demo data. No real business data is shown.",
+      items: [
+        { src: "/projects/malani-dashboard.jpg", alt: "Malani dashboard with sales, purchases and stock summary" },
+        { src: "/projects/malani-products.jpg", alt: "Malani product list with stock levels and prices" },
+        { src: "/projects/malani-invoice.jpg", alt: "Malani invoice detail page" },
+        { src: "/projects/malani-gross-profit.jpg", alt: "Malani net profit report" },
+      ],
+    },
     title: "Malani Wholesale Management System",
     elevatorPitch:
       "A wholesale and distribution management system I built solo in 5 weeks: 119 REST endpoints, 31 data models, 44 pages and 733 automated tests, now in production use.",
@@ -498,6 +507,16 @@ export const projects: Project[] = [
   },
   {
     slug: "hamzatex-operations",
+    screenshots: {
+      note: "Screens from the design prototype I built the app from, with placeholder data. The shipped app follows this design closely; these are not captures of the live app.",
+      portrait: true,
+      items: [
+        { src: "/projects/hamzatex-design-dashboard.jpg", alt: "HamzaTex design: dashboard with monthly overview chart" },
+        { src: "/projects/hamzatex-design-order.jpg", alt: "HamzaTex design: order detail screen" },
+        { src: "/projects/hamzatex-design-invoice.jpg", alt: "HamzaTex design: invoice detail screen" },
+        { src: "/projects/hamzatex-design-profit-loss.jpg", alt: "HamzaTex design: profit and loss report" },
+      ],
+    },
     title: "HamzaTex Operations Suite",
     elevatorPitch:
       "A full-stack textile inventory and accounting app I built solo and that is now in production use: a .NET 10 backend with 159 REST endpoints and 43 entities, about 57 React Native screens, and a pre-release security audit that closed 7 issues.",
